@@ -70,15 +70,55 @@ $(document).ready(function(){
     getData("Blumenau");
   }
 
-  //getData("Londres");
-
   //seta o cookie com a cidade favorita
   $(".city").on("click", "a.favorito", function(e){
     var cidade = $(".city").text().trim();
-
     setCookie("cidade", cidade, 30);
-
     e.preventDefault();
   });
+
+  //Carrega estados
+  $("#changeCity").on("shown.bs.modal", function(){
+    $.getJSON("js/estados-cidades.json", function(json){
+      var options = "<option selected='selected'>Estados</option>";
+      for (var i = 0; i < Object(json.estados).length; i++) {
+  			options += '<option class="estado-opcao" value="' + json.estados[i].nome + '">' + json.estados[i].nome + '</option>';
+  		}
+      $(".estado-opcao").empty();
+      $(".estados").html(options);
+    });
+  });
+
+  //autocomplete cidades
+  $("body").on("change", "select", function(){
+    var estado = $(this).val();
+    var cidades = [];
+    $.getJSON("js/estados-cidades.json", function(json){
+      for (var i = 0; i < Object(json.estados).length; i++) {
+        if(estado == json.estados[i].nome){
+          for(var j=0; j<json.estados[i].cidades.length; j++){
+            cidades.push(json.estados[i].cidades[j]);
+          }
+        }
+  		}
+    });
+    $("#cidades").autocomplete({
+      source: cidades,
+      width:'auto',
+      defaultText:'+',
+      minChars: 2,
+      maxChars : 50,
+      placeholderColor : '#666666',
+    });
+  });
+
+  //muda a cidade
+  $(".new-city").on("click", function(){
+    var cidade = $("#cidades").val();
+    getData(cidade);
+    $("#cidades").val('');
+    $('#changeCity').modal('toggle')
+  })
+
 
 });
