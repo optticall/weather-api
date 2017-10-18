@@ -29,7 +29,7 @@ body{
 }
 
 .logo span{
-  color: #48b8f5;
+  color: #92d2f5;
 }
 
 /* css que controla exibição das informações de temp */
@@ -122,25 +122,54 @@ body{
 
 /* jquery autocomplete */
 .ui-autocomplete {
-    max-height: 100px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-* html .ui-autocomplete {
-  height: 100px;
+    position: relative;
+    top: 100%;
+    left: 0;
+    z-index: 99999;
+    float: left;
+    display: none;
+    min-width: 160px;
+    padding: 4px 15px !important;
+    margin: 0 0 10px 25px;
+    list-style: none;
+    background-color: #ffffff;
+    border-color: #ccc;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+    color: #000;
 }
 
-ul.ui-autocomplete{
-  list-style-type: none;
-  margin: 0;
-  padding: 2px 0 0 5px;
-  position: absolute;
-  z-index: 1500;
-  max-height: 250px;
-  overflow: auto;
-  color: #000;
-  background-color: #fff;
+.ui-menu-item > a.ui-corner-all {
+    display: block;
+    padding: 3px 15px !important;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #555555;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.ui-state-hover, .ui-state-active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #0088cc;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    background-image: none;
 }
 
 .ui-helper-hidden-accessible { display:none; }

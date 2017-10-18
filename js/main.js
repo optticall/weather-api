@@ -157,7 +157,7 @@ $(document).ready(function(){
     getData(cidade);
     $("#cidades").val('');
     $('#changeCity').modal('toggle')
-  })
+  });
 
 
 });
