@@ -154,9 +154,13 @@ $(document).ready(function(){
   //muda a cidade
   $(".new-city").on("click", function(){
     var cidade = $("#cidades").val();
-    getData(cidade);
-    $("#cidades").val('');
-    $('#changeCity').modal('toggle')
+    if(cidade != ""){
+      getData(cidade);
+      $("#cidades").val('');
+      $('#changeCity').modal('toggle')
+    } else {
+      alert("Nenhuma cidade selecionada!");
+    }
   });
 
 
