@@ -13,6 +13,14 @@ body{
   text-align: center;
 }
 
+.minTemp{
+  color: #95b0f3;
+}
+
+.maxTemp{
+  color: #ea9586;
+}
+
 /* css logo */
 .logo{
   font-size: 1.5em;
@@ -94,6 +102,11 @@ body{
   text-align: center !important;
 }
 
+.table>tbody>tr>td, .table>tbody>tr>th,
+.table>tfoot>tr>td, .table>tfoot>tr>th {
+  border-top: 1px solid rgba(251, 251, 251, 0.28) !important;
+}
+
 /* Modal Cidades */
 .modal{
   color: #000 !important;
@@ -127,6 +140,7 @@ ul.ui-autocomplete{
 }
 
 .ui-helper-hidden-accessible { display:none; }
+
 
 
 /* Icons*/

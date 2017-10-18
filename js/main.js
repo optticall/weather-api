@@ -29,12 +29,55 @@ function getData(city){
       $(".min-temp").text(Math.floor(e.list[0].temp.min));
       $(".max-temp").text(Math.floor(e.list[0].temp.max));
       $(".wind-speed").text(Math.floor(e.list[0].speed) + " Km/h");
+
+      generateChart(e);
+
       console.log(e);
     }
   });
 }
 
-//function para setar um cookie no navegador
+//gerar o tabela dos proximos Dias
+function generateChart(d){
+  var tempMin = Math.floor(d.list[0].temp.min);
+  var tempMax = Math.floor(d.list[0].temp.max);;
+  var days = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+
+  var data = new Date();
+  var hoje = data.getDay();
+  var html = "";
+
+  for(var i=0; i<d.list.length; i++){
+    html += "<tr><td>" + days[hoje] + "</td>";
+    html += "<td>" + d.list[i].weather[0].main + "</td>";
+    html += "<td class='minTemp'>" + Math.floor(d.list[i].temp.min) + " °C </td>";
+    html += "<td class='maxTemp'>" + Math.floor(d.list[i].temp.max) + " °C </td>";
+    html += "</tr>"
+
+    //verifica qual menor e maior temperatura da semana
+    tempMinAtual = Math.floor(d.list[i].temp.min);
+    if(tempMinAtual < tempMin){
+      tempMin = Math.floor(d.list[i].temp.min);
+    }
+
+    tempMaxAtual = Math.floor(d.list[i].temp.max);
+    if(tempMaxAtual > tempMax){
+      tempMax = Math.floor(d.list[i].temp.max);
+    }
+
+    //verifica se chegou no ultimo dia da semana e retorna ao domingo
+    hoje++;
+    if(hoje == 7){
+      hoje = 0;
+    }
+  }
+  $(".maxPrevista").text("** Temperatura máxima prevista de " + tempMax + " °C");
+  $(".minPrevista").text("e mínima prevista de " + tempMin + " °C");
+  $(".semana").html(html);
+
+}
+
+//setar um cookie no navegador
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -42,7 +85,7 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-//funcao para pegar o cookie do navegador
+//pegar o cookie do navegador
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
