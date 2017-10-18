@@ -1,14 +1,11 @@
+var clima = {"Clear": "Ensolarado", "Clouds": "Nublado", "Rain": "Chuvoso", "Snow": "Nevando",}
+
 
 //Funcao getData gera conteúdo de acordo com a cidade passada por parametro
 function getData(city){
 
   //variavel background retorna url de imagem de acordo com tempo
-  var background = {
-    "clear": "img/clear.jpg",
-    "clouds": "img/cloudy.jgp",
-    "rain": "img/rain.jpg",
-    "snow": "img/snow.jpg",
-  }
+  var background = {"clear": "img/clear.jpg", "clouds": "img/cloudy.jgp", "rain": "img/rain.jpg", "snow": "img/snow.jpg"}
 
   $.ajax({
     url: "http://api.openweathermap.org/data/2.5/forecast/daily?q="+city+"&units=metric&cnt=7&appid=79c3bbf6a5f2924c4dbb66e59ad616b4",
@@ -22,14 +19,14 @@ function getData(city){
         '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'+
         '</a>');
       $(".temp").text(Math.floor(e.list[0].temp.day) + "°C");
-      $(".desc").text(e.list[0].weather[0].description);
+      $(".desc").text(clima[e.list[0].weather[0].main]);
       $(".icon").removeClass("hidden").addClass("hidden");
       $("." + e.list[0].weather[0].main.toLowerCase() ).removeClass("hidden");
       $(".humidity").text(Math.floor(e.list[0].humidity) + " %");
       $(".min-temp").text(Math.floor(e.list[0].temp.min));
       $(".max-temp").text(Math.floor(e.list[0].temp.max));
       $(".wind-speed").text(Math.floor(e.list[0].speed) + " Km/h");
-
+      $(".eventos").attr("href", "https://www.eventbrite.com.br/d/brazil--" + e.city.name +"/events/")
       generateChart(e);
 
       console.log(e);
@@ -42,14 +39,13 @@ function generateChart(d){
   var tempMin = Math.floor(d.list[0].temp.min);
   var tempMax = Math.floor(d.list[0].temp.max);;
   var days = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-
   var data = new Date();
   var hoje = data.getDay();
   var html = "";
 
   for(var i=0; i<d.list.length; i++){
     html += "<tr><td>" + days[hoje] + "</td>";
-    html += "<td>" + d.list[i].weather[0].main + "</td>";
+    html += "<td>" + clima[d.list[i].weather[0].main] + "</td>";
     html += "<td class='minTemp'>" + Math.floor(d.list[i].temp.min) + " °C </td>";
     html += "<td class='maxTemp'>" + Math.floor(d.list[i].temp.max) + " °C </td>";
     html += "</tr>"
@@ -71,8 +67,8 @@ function generateChart(d){
       hoje = 0;
     }
   }
-  $(".maxPrevista").text("** Temperatura máxima prevista de " + tempMax + " °C");
-  $(".minPrevista").text("e mínima prevista de " + tempMin + " °C");
+  $(".maxPrevista").text(tempMax + " °C");
+  $(".minPrevista").text(tempMin + " °C");
   $(".semana").html(html);
 
 }

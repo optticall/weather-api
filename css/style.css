@@ -25,7 +25,7 @@ body{
 .logo{
   font-size: 1.5em;
   font-weight: 700;
-  padding: 20px 0;
+  padding: 20px 0 0 20px;
 }
 
 .logo span{
@@ -105,6 +105,10 @@ body{
 .table>tbody>tr>td, .table>tbody>tr>th,
 .table>tfoot>tr>td, .table>tfoot>tr>th {
   border-top: 1px solid rgba(251, 251, 251, 0.28) !important;
+}
+
+.week{
+  font-size: 1em !important;
 }
 
 /* Modal Cidades */
